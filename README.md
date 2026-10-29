@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/ArtazarXXX/FileShifter/releases/latest"><img src="https://img.shields.io/badge/Release-v1.0.0-38bdf8?style=for-the-badge&logo=apple&logoColor=white" alt="Release v1.0.0"></a>
+  <a href="https://github.com/ArtazarXXX/FileShifter/releases/latest"><img src="https://img.shields.io/badge/Release-v0.0.1-38bdf8?style=for-the-badge&logo=apple&logoColor=white" alt="Release v0.0.1"></a>
   <img src="https://img.shields.io/badge/macOS-13.0%2B%20%7C%20Sequoia-000000?style=for-the-badge&logo=apple&logoColor=white" alt="macOS 13+">
   <img src="https://img.shields.io/badge/Architecture-Apple%20Silicon%20%2F%20Intel-818cf8?style=for-the-badge" alt="Architecture">
   <img src="https://img.shields.io/badge/Swift-5.9%2B-f05138?style=for-the-badge&logo=swift&logoColor=white" alt="Swift 5.9+">
