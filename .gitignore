@@ -1,0 +1,31 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Swift Package Manager
+.build/
+Packages/
+Package.pins
+Package.resolved
+*.xcodeproj
+
+# Build output
+build/
+*.app.zip
+*.dmg
+
+# Test artifacts
+*test/
+*test*/
+docs test/
+doc test/
+img test/
+video test/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*~
