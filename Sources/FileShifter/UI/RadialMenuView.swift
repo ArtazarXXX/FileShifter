@@ -290,16 +290,17 @@ public struct RadialMenuView: View {
         }
     }
     
-    private let wheelRadius: CGFloat = 142
-    private let innerRadius: CGFloat = 46
+    public static let wheelRadius: CGFloat = 142.0
+    public static let innerRadius: CGFloat = 50.0
+    public static let buttonRadius: CGFloat = 108.0
     
     public var body: some View {
         ZStack {
-            // Светлый Liquid Glass с высокой матовой прозрачностью
+            // Светлый Liquid Glass с высокой матовой прозрачностью и симметричной тенью
             Circle()
                 .fill(.ultraThinMaterial)
-                .frame(width: wheelRadius * 2 + 58, height: wheelRadius * 2 + 58)
-                .shadow(color: .black.opacity(0.16), radius: 16, x: 0, y: 6)
+                .frame(width: Self.wheelRadius * 2 + 58, height: Self.wheelRadius * 2 + 58)
+                .shadow(color: .black.opacity(0.18), radius: 18, x: 0, y: 0)
                 .overlay(
                     Circle()
                         .stroke(
@@ -312,25 +313,25 @@ public struct RadialMenuView: View {
                         )
                 )
             
-            // Секторы колеса
-            ForEach(sectors) { sector in
+            // Секторы колеса: строго привязаны к углу и радиусу
+            ForEach(Array(sectors.enumerated()), id: \.element.id) { index, sector in
                 let count = sectors.count
                 let angleStep = 360.0 / Double(count)
-                let midAngle = Double(sector.id) * angleStep - 90.0
-                let isSelected = selectedIndex == sector.id
+                let midAngle = Double(index) * angleStep - 90.0
+                let isSelected = selectedIndex == index
                 
                 SectorButton(
                     sector: sector,
                     angle: midAngle,
-                    radius: (wheelRadius + innerRadius) / 2 + 10,
+                    radius: Self.buttonRadius,
                     isSelected: isSelected
                 )
             }
             
-            // Центральная ступица с инфо о файле
+            // Центральная ступица (зона "ничего не делать" с инфо о файле)
             Circle()
                 .fill(.regularMaterial)
-                .frame(width: innerRadius * 2 + 12, height: innerRadius * 2 + 12)
+                .frame(width: Self.innerRadius * 2, height: Self.innerRadius * 2)
                 .overlay(
                     Circle()
                         .stroke(.white.opacity(0.4), lineWidth: 1)
@@ -345,7 +346,7 @@ public struct RadialMenuView: View {
                             .font(.system(size: 10, weight: .semibold, design: .rounded))
                             .lineLimit(1)
                             .truncationMode(.middle)
-                            .frame(maxWidth: 82)
+                            .frame(maxWidth: 78)
                             .foregroundStyle(Color(white: 0.2))
                     }
                 )
@@ -389,33 +390,39 @@ private struct SectorButton: View {
         let x = radius * cos(rad)
         let y = radius * sin(rad)
         
-        VStack(spacing: 3) {
-            ZStack {
-                Circle()
-                    .fill(isSelected ? sector.color : Color.white.opacity(0.55))
-                    .frame(width: 44, height: 44)
-                    .overlay(
-                        Circle()
-                            .stroke(isSelected ? .white : sector.color.opacity(0.4), lineWidth: isSelected ? 2 : 1)
-                    )
-                    .shadow(color: isSelected ? sector.color.opacity(0.5) : .black.opacity(0.08), radius: isSelected ? 8 : 3)
-                
-                Image(systemName: sector.icon)
-                    .font(.system(size: 18, weight: .bold))
-                    .foregroundStyle(isSelected ? .white : sector.color)
-            }
+        ZStack {
+            // Круглая кнопка с иконкой — её центр ВСЕГДА строго в точке (x, y)
+            Circle()
+                .fill(isSelected ? sector.color : Color.white.opacity(0.55))
+                .frame(width: 44, height: 44)
+                .overlay(
+                    Circle()
+                        .stroke(isSelected ? .white : sector.color.opacity(0.4), lineWidth: isSelected ? 2 : 1)
+                )
+                .shadow(color: isSelected ? sector.color.opacity(0.5) : .black.opacity(0.08), radius: isSelected ? 8 : 3)
             
-            Text(sector.title)
-                .font(.system(size: 11, weight: .bold, design: .rounded))
-                .foregroundStyle(Color(white: 0.12))
-            
-            if let sub = sector.subtitle {
-                Text(sub)
-                    .font(.system(size: 8.5, weight: .medium, design: .rounded))
-                    .foregroundStyle(Color(white: 0.38))
-            }
+            Image(systemName: sector.icon)
+                .font(.system(size: 18, weight: .bold))
+                .foregroundStyle(isSelected ? .white : sector.color)
         }
-        .scaleEffect(isSelected ? 1.16 : 1.0)
+        .frame(width: 44, height: 44)
+        .overlay(alignment: .bottom) {
+            VStack(spacing: 1.5) {
+                Text(sector.title)
+                    .font(.system(size: 11, weight: .bold, design: .rounded))
+                    .foregroundStyle(Color(white: 0.12))
+                
+                if let sub = sector.subtitle {
+                    Text(sub)
+                        .font(.system(size: 8.5, weight: .medium, design: .rounded))
+                        .foregroundStyle(Color(white: 0.38))
+                }
+            }
+            .fixedSize()
+            .offset(y: 33)
+            .allowsHitTesting(false)
+        }
+        .scaleEffect(isSelected ? 1.15 : 1.0)
         .animation(.spring(response: 0.18, dampingFraction: 0.65), value: isSelected)
         .offset(x: x, y: y)
     }

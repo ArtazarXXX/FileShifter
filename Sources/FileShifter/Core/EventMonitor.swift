@@ -257,7 +257,7 @@ public final class EventMonitor {
         let dy = -(currentMouse.y - centerLocation.y)
         
         let distance = hypot(dx, dy)
-        let deadZone: CGFloat = 26.0
+        let deadZone: CGFloat = RadialMenuView.innerRadius
         
         let newIndex: Int?
         if distance < deadZone {
