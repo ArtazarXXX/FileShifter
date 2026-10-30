@@ -1,4 +1,8 @@
 <p align="center">
+  <b>English</b> • <a href="README.ru.md">Русский</a>
+</p>
+
+<p align="center">
   <img src="assets/hero-banner.svg" alt="FileShifter for macOS" width="100%">
 </p>
 
@@ -11,209 +15,209 @@
 </p>
 
 <p align="center">
-  <b>Кинематографичный нативный инструмент для macOS, превращающий рутину с файлами в опыт работы со сверхзвуковым жестовым радиальным меню.</b><br>
-  <i>Выделил файл в Finder → дважды зажал клавишу → сдвинул курсор в сектор → готово! Никаких лишних кликов и окон.</i>
+  <b>Cinematic native macOS tool turning daily file chores into a supersonic gesture radial menu experience.</b><br>
+  <i>Select a file in Finder → double-tap and hold a modifier key → flick cursor to a sector → done! Zero extra clicks or windows.</i>
 </p>
 
 <p align="center">
-  <a href="https://github.com/ArtazarXXX/FileShifter/releases/latest"><b>📦 Скачать свежий билд (.zip)</b></a> •
-  <a href="#-быстрый-старт"><b>🚀 Быстрый старт</b></a> •
-  <a href="#-горячие-жесты-управления"><b>🎮 Горячие жесты</b></a> •
-  <a href="#-честные-ограничения-и-архитектурные-нюансы"><b>⚠️ Ограничения</b></a> •
-  <a href="#-сборка-из-исходников"><b>🛠 Сборка</b></a>
+  <a href="https://github.com/ArtazarXXX/FileShifter/releases/latest"><b>📦 Download Latest Build (.zip)</b></a> •
+  <a href="#-quick-start"><b>🚀 Quick Start</b></a> •
+  <a href="#-gesture-controls"><b>🎮 Gesture Controls</b></a> •
+  <a href="#-honest-limitations--architectural-notes"><b>⚠️ Limitations</b></a> •
+  <a href="#-building-from-source"><b>🛠 Build</b></a>
 </p>
 
 ---
 
-## 📸 Интерфейс в действии
+## 📸 Interface in Action
 
 <p align="center">
   <img src="assets/radial-wheel.jpg" alt="FileShifter Liquid Glass Radial Wheel" width="380" style="border-radius: 50%; box-shadow: 0 25px 60px rgba(0,0,0,0.45);">
 </p>
 
-> 💡 **Магия жеста Hold & Flick:** Меню появляется прямо в точке нахождения курсора мыши. При наведении на сектор воспроизводится тактильный системный звук и визуальный отклик. Отпустив клавишу, вы мгновенно запускаете команду. Если отпустить клавишу в центре или передумать — меню моментально исчезает без единого клика.
+> 💡 **Hold & Flick Gesture:** The wheel appears right under your cursor. Hovering over a sector triggers haptic feedback and visual liquid response. Release the key to immediately trigger the action. Release in the center dead zone or press `Esc` to instantly cancel without doing anything.
 
 ---
 
-## ⚡ Как это работает
+## ⚡ How It Works
 
 <p align="center">
   <img src="assets/workflow.svg" alt="FileShifter Workflow Diagram" width="100%">
 </p>
 
-FileShifter интегрируется с macOS на уровне Accessibility API и Apple Events:
-1. **Выделение в Finder:** Работает в любом режиме Finder (иконки, список, колонки, Gallery).
-2. **Double-Tap & Hold (Двойной тап с удержанием):** Быстрое двойное нажатие с зажатием клавиши на втором тапе гарантирует 100% защиту от случайных срабатываний при обычном наборе текста или шорткатах.
-3. **Реактивное радиальное колесо:** Построено на SwiftUI и AppKit с поддержкой ProMotion до 120 FPS и адаптивным затемнением фона.
-4. **Нативные движки Apple:** Вся магия выполняется аппаратно через **Apple Vision**, **CoreGraphics**, **CoreText**, **AVFoundation** и утилиту **ffmpeg**.
+FileShifter integrates seamlessly into macOS via Accessibility APIs and Apple Events:
+1. **Finder Selection:** Works in any Finder view (Icons, List, Columns, Gallery).
+2. **Double-Tap & Hold:** Fast double-press while holding the key on the second tap guarantees 100% protection against accidental triggers during regular typing or window hotkeys.
+3. **Reactive Radial Wheel:** Built with SwiftUI & AppKit supporting ProMotion up to 120 FPS.
+4. **Native Apple Frameworks:** Accelerated by **Apple Vision**, **CoreGraphics**, **CoreText**, **AVFoundation**, and **ffmpeg**.
 
 ---
 
-## 🎮 Горячие жесты управления
+## 🎮 Gesture Controls
 
-Управление построено на 4 клавишах-модификаторах. Нажав любую из них дважды с удержанием, вы открываете соответствующий режим для текущего файла:
+Controlled entirely via 4 modifier keys. Double-tap and hold any of them to open the corresponding mode for the selected file:
 
 <table align="center" width="100%">
   <tr>
     <td width="50%" align="center">
-      <img src="assets/badge-shift.svg" width="100%" alt="Shift: Конвертация"><br>
-      <b>Мгновенная смена форматов</b><br>
+      <img src="assets/badge-shift.svg" width="100%" alt="Shift: Convert"><br>
+      <b>Instant Format Conversion</b><br>
       <sub>WebP, AVIF, PNG, JPG, MP4, WebM, MP3, PDF, MD, JSON, YAML, CSV</sub>
     </td>
     <td width="50%" align="center">
-      <img src="assets/badge-ctrl.svg" width="100%" alt="Control: Магия AI"><br>
-      <b>Нейросети и оптимизация</b><br>
-      <sub>Вырезка фона (Vision), OCR в буфер, умное сжатие, очистка EXIF, Mute</sub>
+      <img src="assets/badge-ctrl.svg" width="100%" alt="Control: AI Magic"><br>
+      <b>Neural Networks & Optimization</b><br>
+      <sub>Background Removal (Vision), OCR to clipboard, smart compression, EXIF wipe, Mute</sub>
     </td>
   </tr>
   <tr>
     <td width="50%" align="center">
-      <img src="assets/badge-cmd.svg" width="100%" alt="Command: Смарт-кроп"><br>
-      <b>Vision Saliency кадрирование</b><br>
-      <sub>Авто-фокус на лицах и объектах: 9:16, 1:1, 16:9, A4, штампы КОПИЯ/DRAFT</sub>
+      <img src="assets/badge-cmd.svg" width="100%" alt="Command: Smart Crop"><br>
+      <b>Vision Saliency Auto-Framing</b><br>
+      <sub>Auto-focus on faces & subjects: 9:16, 1:1, 16:9, A4, COPY / DRAFT stamps</sub>
     </td>
     <td width="50%" align="center">
-      <img src="assets/badge-opt.svg" width="100%" alt="Option: Скорость"><br>
-      <b>Скорость, поворот и утилиты</b><br>
-      <sub>Ускорение видео 0.5x–2.5x, масштабирование фото, Clean ZIP без .DS_Store</sub>
+      <img src="assets/badge-opt.svg" width="100%" alt="Option: Speed & Tools"><br>
+      <b>Speed, Scale & Clean Utilities</b><br>
+      <sub>Video speed 0.5x–2.5x, image scaling, clean ZIP without .DS_Store</sub>
     </td>
   </tr>
 </table>
 
 ---
 
-## 📦 Каталог поддерживаемых возможностей
+## 📦 Feature Catalog
 
-### 🖼️ 1. Фото и графика (PNG, JPG, HEIC, WebP, AVIF, GIF, SVG, BMP)
-* **⇧ Shift (Конвертация):** WebP (для веба) • AVIF (сверхсжатие) • PNG (с альфа-каналом) • JPG • PDF.
-* **⌃ Control (Магия):** 
-  * 🪄 **Удалить фон** — вырезает главный объект на прозрачный фон через нейросеть `VNGenerateForegroundInstanceMaskRequest`.
-  * 🗜️ **Сжать** — адаптивное сжатие под веб с гарантией снижения веса.
-  * 📝 **OCR текст** — мгновенное распознавание печатного и рукописного текста (RU/EN) прямо в буфер обмена.
-  * 🔒 **Очистить EXIF** — полное стирание GPS-координат, серийных номеров камеры и приватных метаданных.
-  * 📋 **Base64** — копирование Data URL для фронтенд-разработки.
-  * ℹ️ **Инфо о файле** — всплывающая HUD-карточка со свойствами, мегапикселями и цветовым профилем.
-  * 👤 **Аватарка** — авто-детект лица через Vision и центрированная круглая вырезка.
-  * 🔄 **Поворот** — поворот на +90° по часовой стрелке.
-* **⌘ Command (Кадрирование):** Нейросетевой кроп `VNGenerateAttentionBasedSaliencyImageRequest` — находит композиционный центр кадра: **1:1** (Квадрат), **16:9** (Широкий), **9:16** (Stories/Reels), **4:3** (Фото), **4:5** (Instagram), **3:2** (Стандарт 35мм).
-* **⌥ Option (Масштаб):** Пропорциональный ресайз: 50%, 75%, 125%, 150%, 175%, 200%, 250%.
+### 🖼️ 1. Images & Graphics (PNG, JPG, HEIC, WebP, AVIF, GIF, SVG, BMP)
+* **⇧ Shift (Conversion):** WebP (for web) • AVIF (next-gen ultra-compression) • PNG (with alpha) • JPG • PDF.
+* **⌃ Control (Magic):** 
+  * 🪄 **Remove Background** — extracts primary subject with transparent alpha via `VNGenerateForegroundInstanceMaskRequest`.
+  * 🗜️ **Compress** — adaptive web compression guaranteeing reduced file size.
+  * 📝 **OCR Text** — instant printed/handwritten text recognition straight to system clipboard.
+  * 🔒 **Wipe EXIF** — strips GPS coordinates, camera serial numbers, and sensitive metadata.
+  * 📋 **Base64** — copies ready-to-use Data URL for frontend development.
+  * ℹ️ **File Info** — pop-up HUD card with dimensions, megapixels, and color profile.
+  * 👤 **Avatar** — auto-detects faces via Vision and performs centered circular crop.
+  * 🔄 **Rotate** — rotates +90° clockwise.
+* **⌘ Command (Auto-Framing):** Saliency AI crop `VNGenerateAttentionBasedSaliencyImageRequest` — tracks compositional focal point: **1:1** (Square), **16:9** (Wide), **9:16** (Stories/Reels), **4:3**, **4:5** (Instagram), **3:2**.
+* **⌥ Option (Scale):** Proportional resize: 50%, 75%, 125%, 150%, 175%, 200%, 250%.
 
-### 🎬 2. Видео (MOV, MP4, MKV, AVI, WebM, M4V, TS)
-* **⇧ Shift (Конвертация):** Ремукс фильма для Mac (мгновенная упаковка в MP4 без пережатия видеодорожки) • MP4 (H.264 VideoToolbox аппаратный энкодер) • WebM (VP9) • GIF (высокоточная палитра `palettegen`) • MP3 (320 kbps) • Apple ProRes MOV.
-* **⌃ Control (Магия):** Сжать <25 МБ (для Telegram) • Без звука (Mute) • Быстрый 5-сек GIF-мем • 15-сек превью • Поворот видео • HUD-инфо (битрейт, FPS, кодек, длительность).
-* **⌘ Command (Reels & Shorts):** Кроп 9:16 (умный центр) • Кроп 9:16 с размытием фона (Story Blur) • 1:1 Квадрат • 1:1 с размытием полей • 16:9 • 4:5 Пост.
-* **⌥ Option (Скорость):** Плавное изменение скорости с компенсацией тональности звука (`atempo`): **0.5x** (Slow-Mo), **0.75x**, **1.25x**, **1.5x** (Лекции), **1.75x**, **2.0x**, **2.5x** (Таймлапс).
+### 🎬 2. Video (MOV, MP4, MKV, AVI, WebM, M4V, TS)
+* **⇧ Shift (Conversion):** Movie Remux for Mac (instant container packaging to MP4 without video re-encoding) • MP4 (H.264 VideoToolbox hardware accelerated) • WebM (VP9) • GIF (high-precision `palettegen`) • MP3 (320 kbps audio rip) • Apple ProRes MOV.
+* **⌃ Control (Magic):** Compress <25 MB (for Telegram / Discord) • Mute (strip audio) • 5s Quick GIF meme • 15s Preview • Rotate Video • HUD Info (bitrate, FPS, codec, duration).
+* **⌘ Command (Reels & Shorts):** Crop 9:16 (smart focal center) • Crop 9:16 with Story Blur background • 1:1 Square • 1:1 with blurred pillars • 16:9 • 4:5 Post.
+* **⌥ Option (Speed):** Smooth playback speed modification with pitch-preserved audio (`atempo`): **0.5x** (Slow-Mo), **0.75x**, **1.25x**, **1.5x** (Lectures), **1.75x**, **2.0x**, **2.5x** (Timelapse).
 
-### 📄 3. PDF и Документы (PDF, DOCX, DOC, Pages, RTF, MD, HTML, TXT)
-* **⇧ Shift (Конвертация PDF):**
-  * 📑 **PNG (Стр.)** — экспорт всех страниц в отдельную папку.
-  * 🖼️ **Обложка** — первая страница в высоком разрешении JPG.
-  * 📝 **Текст .txt** — извлечение текстового слоя (с авто-переходом на Vision OCR для сканов).
-  * 📑 **Markdown** — форматированный Markdown-документ с постраничной разбивкой.
-* **⇧ Shift (Конвертация DOCX / MD / HTML):** DOCX → Векторный PDF • Markdown → Оформленный PDF/HTML • HTML → Markdown • TXT.
-* **⌃ Control (Магия):** Сжать PDF <5 МБ • OCR скана в буфер • Извлечь все встроенные фото • Разрезать на страницы • Статистика слов и времени чтения документа.
-* **⌘ Command (Оформление):** Авто-обрезка полей (Crop Margins) • Приведение к стандарту A4 • Наложение штампов **«КОПИЯ»** / **«DRAFT»** • Объединение всех PDF в папке в один том.
-* **⌥ Option (Страницы):** Поворот страниц (+90°, -90°, 180°) • Извлечь титульный лист (Стр. 1) • Удалить обложку • Чистый ZIP без `.DS_Store`.
+### 📄 3. PDF & Documents (PDF, DOCX, DOC, Pages, RTF, MD, HTML, TXT)
+* **⇧ Shift (PDF Conversion):**
+  * 📑 **PNG (Pages)** — exports all pages into a clean dedicated folder.
+  * 🖼️ **Cover** — renders title page in high-res JPG.
+  * 📝 **Text .txt** — extracts text layer (auto-falls back to Vision OCR for scans).
+  * 📑 **Markdown** — structured markdown document with page delimiters.
+* **⇧ Shift (DOCX / MD / HTML Conversion):** DOCX → Vector PDF • Markdown → Styled PDF/HTML • HTML → Markdown • TXT.
+* **⌃ Control (Magic):** Compress PDF <5 MB • OCR Scan to clipboard • Extract all embedded images • Split into individual page files • Word count & reading time stats.
+* **⌘ Command (Formatting):** Auto-crop margins • Normalize to standard A4 • Overlay **"COPY"** / **"DRAFT"** watermarks • Merge all PDFs in folder into one volume.
+* **⌥ Option (Pages & Archive):** Rotate pages (+90°, -90°, 180°) • Extract title page • Remove cover • Clean ZIP without `.DS_Store`.
 
-### 📊 4. Данные и Таблицы (JSON, YAML, CSV, Plist)
-* **⇧ Shift (Конвертация):** CSV → JSON • CSV → Markdown Таблица • YAML ↔ JSON • Plist ↔ JSON.
-* **⌃ Control (Магия):** Prettify (красивое форматирование с отступами) • Minify (в 1 строку) • Копировать код в буфер • Валидация синтаксиса.
-* **⌘ Command (Срезы):** Топ-10 строк (Head 10) • Топ-100 строк • Случайная выборка (10 строк) • Base64 Encode / Decode.
-* **⌥ Option (Строки):** Сортировка A-Z • Удаление дубликатов строк • Нумерация строк (1, 2, 3...) • Бэкап с таймстампом.
-
----
-
-## ⚠️ Честные ограничения и архитектурные нюансы
-
-Мы создавали FileShifter как прозрачный инженерный инструмент, поэтому открыто документируем все ограничения и граничные случаи:
-
-### 1. Конвертация DOCX → PDF (Гибридный режим)
-* **При запущенном Microsoft Word:** Экспорт выполняется через официальный движок Word по AppleScript. Результат — **100% идентичность оригиналу** (сохраняются точные колонтитулы, нумерация `Стр. X из Y`, плавающие рисунки и сложные таблицы).
-  > 🔐 *При первом вызове macOS запросит разрешение на управление Microsoft Word. Нажмите «Разрешить» в диалоговом окне.*
-* **Без Microsoft Word (Автономный движок CoreText):** Если Word не установлен, документ рендерится нативным движком Apple. Документ форматируется чисто в A4, но сложные векторные схемы WordArt и динамические макро-поля нумерации страниц могут отображаться с упрощенным выравниванием.
-
-### 2. Защищенные паролем PDF
-* Документы с защитой на открытие (банковские выписки, зашифрованные договоры) блокируются системой безопасности `PDFKit`. FileShifter уведомит вас всплывающим тостом: *«PDF защищен паролем. Снимите защиту перед обработкой»*.
-
-### 3. Видео без звуковых дорожек
-* Если вы пытаетесь конвертировать в `.mp3` видеофайл без звука (скринкаст экрана, таймлапс или видео с дрона), FileShifter определит отсутствие аудиодорожки через `ffprobe` и предупредит вас, не допуская аварийного сбоя.
-
-### 4. Файлы в облаке iCloud Drive
-* Если файл находится в iCloud и еще физически не выкачан на локальный диск Mac (рядом с ним отображается иконка облачка), система уведомит: *«Файл в iCloud и не скачан на Mac»*. Достаточно нажать на значок облака в Finder, чтобы скачать его.
-
-### 5. Авто-определение разделителей в CSV
-* Встроенный CSV-парсер автоматически определяет разделители: запятую `,` (международный стандарт), точку с запятой `;` (русскоязычный Excel) и табуляцию `\t` (TSV). Поддерживаются кодировки **UTF-8**, **Windows-1251 (CP1251)** и **ISO Latin-1**.
+### 📊 4. Data & Tables (JSON, YAML, CSV, Plist)
+* **⇧ Shift (Conversion):** CSV → JSON • CSV → Markdown Table • YAML ↔ JSON • Plist ↔ JSON.
+* **⌃ Control (Magic):** Prettify (formatted indentation) • Minify (single-line) • Copy to clipboard • Validate syntax.
+* **⌘ Command (Slices):** Top 10 lines (Head 10) • Top 100 lines • Random 10-line sample • Base64 Encode / Decode.
+* **⌥ Option (Lines):** Sort A-Z • Remove duplicate lines • Number lines (1, 2, 3...) • Timestamped backup copy.
 
 ---
 
-## 🚀 Быстрый старт
+## ⚠️ Honest Limitations & Architectural Notes
 
-### Способ 1: Готовый билд
-1. Скачайте архив **[FileShifter.app.zip](https://github.com/ArtazarXXX/FileShifter/releases/latest)**.
-2. Распакуйте и перенесите в папку `/Applications/` (Программы).
-3. Запустите. При первом запуске macOS попросит выдать разрешение **Универсальный доступ** (*Системные настройки → Конфиденциальность и безопасность → Универсальный доступ*). Это необходимо для отслеживания жестов клавиш-модификаторов.
+We built FileShifter as a transparent engineering tool, openly documenting all edge cases:
+
+### 1. DOCX → PDF Conversion (Hybrid Engine)
+* **When Microsoft Word is running:** Export uses Word's native engine via AppleScript. Result: **100% pixel-perfect identity** (exact headers, `Page X of Y` numbering, floating images, and complex tables).
+  > 🔐 *On first run, macOS will prompt for permission to control Microsoft Word. Click "Allow".*
+* **Without Microsoft Word (CoreText Engine):** If Word is closed or uninstalled, document is rendered by Apple's native CoreText. It outputs clean A4 PDFs, though advanced WordArt vector schemas or dynamic macro page numbers may render with simplified layout.
+
+### 2. Password-Protected PDFs
+* Encrypted PDFs are blocked by `PDFKit` security constraints. FileShifter alerts you with a gentle HUD notification: *"PDF is password-protected. Unlock before processing"*.
+
+### 3. Videos without Audio Tracks
+* If you extract MP3 from a silent video (screencast, timelapse, drone footage), FileShifter detects the missing audio track via `ffprobe` and warns you safely without crashing.
+
+### 4. iCloud Drive Cloud Stubs
+* If a file is stored in iCloud and hasn't downloaded to local disk yet (shows cloud icon in Finder), FileShifter alerts: *"File is in iCloud and not downloaded"*. Simply click the cloud icon in Finder to fetch it.
+
+### 5. Auto-Delimiter Detection in CSV
+* Built-in CSV parser automatically detects comma `,`, semicolon `;` (European Excel), and tab `\t` (TSV). Supports **UTF-8**, **Windows-1251 (CP1251)**, and **ISO Latin-1**.
 
 ---
 
-## 🛠 Сборка из исходников
+## 🚀 Quick Start
 
-### Требования
-* **macOS 13.0 (Ventura)** или новее (протестировано на macOS 14 Sonoma и macOS 15 Sequoia).
+### Method 1: Pre-built Binary
+1. Download **[FileShifter.app.zip](https://github.com/ArtazarXXX/FileShifter/releases/latest)**.
+2. Unzip and drag `FileShifter.app` to your `/Applications/` folder.
+3. Launch it. On first launch, macOS will request **Accessibility** permission (*System Settings → Privacy & Security → Accessibility*). This is required to detect modifier key gestures in Finder.
+
+---
+
+## 🛠 Building from Source
+
+### Requirements
+* **macOS 13.0 (Ventura)** or newer (tested on macOS 14 Sonoma and macOS 15 Sequoia).
 * **Xcode Command Line Tools** (`xcode-select --install`).
-* **Homebrew** и кодеки (для работы с видео и WebP/AVIF):
+* **Homebrew** and codecs:
   ```bash
   brew install ffmpeg libwebp libavif
   ```
 
-### Сборка и упаковка .app
+### Build & Package .app
 ```bash
-# Клонируйте репозиторий:
+# Clone the repository:
 git clone https://github.com/ArtazarXXX/FileShifter.git
 cd FileShifter
 
-# Запустите скрипт автоматической релизной сборки:
+# Run release build script:
 ./Scripts/build_app.sh
 
-# Приложение готово в папке build:
+# Launch the app from build directory:
 open build/FileShifter.app
 ```
 
 ---
 
-## 🏛 Архитектура проекта
+## 🏛 Architecture
 
-Кодовая база спроектирована по модульному принципу без сторонних тяжелых зависимостей:
+Designed modularly with pure Apple frameworks and zero bloated dependencies:
 
 ```
 Sources/FileShifter/
 ├── Core/
-│   ├── ActionDescriptor.swift       # Строгая типизация действий колеса (Type-Safe Actions)
-│   ├── ActionExecutor.swift         # Унифицированный раннер фоновых асинхронных задач
-│   ├── DocumentProcessor.swift      # Обработка PDF, Word, Markdown, HTML, CSV, JSON, YAML
-│   ├── EventMonitor.swift           # Реактивный перехватчик жестов (Double-Tap & Hold)
-│   ├── FileUtils.swift              # Безопасная работа с путями и предотвращение коллизий
-│   ├── FinderBridge.swift           # Интеграция с Finder через скомпилированный AppleScript
-│   ├── ImageProcessor.swift         # Apple Vision Saliency, удаление фона, WebP/AVIF
-│   ├── ProcessRunner.swift          # Безопасный асинхронный запуск утилит (ffmpeg, textutil)
-│   └── VideoProcessor.swift         # VideoToolbox аппаратный ремукс, сжатие, Reels-кроп
+│   ├── ActionDescriptor.swift       # Type-Safe Actions enum
+│   ├── ActionExecutor.swift         # Unified background async task runner
+│   ├── DocumentProcessor.swift      # PDF, Word, Markdown, HTML, CSV, JSON, YAML
+│   ├── EventMonitor.swift           # Reactive gesture capture (Double-Tap & Hold)
+│   ├── FileUtils.swift              # Safe collision-free file naming
+│   ├── FinderBridge.swift           # Finder integration via compiled AppleScript
+│   ├── ImageProcessor.swift         # Apple Vision Saliency, background removal, WebP/AVIF
+│   ├── ProcessRunner.swift          # Safe async CLI runner (ffmpeg, textutil)
+│   └── VideoProcessor.swift         # VideoToolbox hardware remux, compress, Reels crop
 └── UI/
-    ├── GlassCard.swift              # Переиспользуемый контейнер Liquid Glass для карточек
-    ├── OverlayWindowController.swift# NSPanel оверлеи с прозрачностью и отсечением кликов
-    ├── RadialMenuView.swift         # Радиальное меню, сектора и ховер-анимации
-    ├── ToastFeedbackView.swift      # Нативные HUD-уведомления о статусе операций
-    └── *InfoCardView.swift          # Информационные карточки документов, медиа и видео
+    ├── GlassCard.swift              # Reusable Liquid Glass card container
+    ├── OverlayWindowController.swift# Borderless transparent NSPanel overlay
+    ├── RadialMenuView.swift         # Radial wheel, sector angles & hover animations
+    ├── ToastFeedbackView.swift      # Native status HUD notifications
+    └── *InfoCardView.swift          # Metadata cards for documents, media & video
 ```
 
-* **Потребление памяти:** ~25–28 МБ в фоне.
-* **Нагрузка на CPU:** 0.0% в режиме ожидания (события обрабатываются реактивно через Event Tap).
-* **Утечки:** 0 ворнингов компилятора, строгий режим `@MainActor` для UI и `Sendable` для асинхронных процессоров.
+* **Memory Footprint:** ~25–28 MB in background.
+* **CPU Load:** 0.0% in idle mode.
+* **Reliability:** 0 compiler warnings, strict `@MainActor` UI isolation, and `Sendable` async processors.
 
 ---
 
-## 📄 Лицензия
+## 📄 License
 
-Проект распространяется под свободной лицензией **MIT**. Подробности в файле [LICENSE](LICENSE).
+Distributed under the **MIT License**. See [LICENSE](LICENSE) for details.
 
 <p align="center">
-  <sub>Сделано с любовью к нативному macOS и плавной кинематографичной анимации.</sub>
+  <sub>Crafted with passion for native macOS performance and fluid 120 FPS animation.</sub>
 </p>
