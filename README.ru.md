@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <img src="assets/hero-banner.svg" alt="FileShifter for macOS" width="100%">
+  <img src="assets/hero-banner-ru.svg" alt="FileShifter for macOS" width="100%">
 </p>
 
 <p align="center">
@@ -42,7 +42,7 @@
 ## ⚡ Как это работает
 
 <p align="center">
-  <img src="assets/workflow.svg" alt="FileShifter Workflow Diagram" width="100%">
+  <img src="assets/workflow-ru.svg" alt="FileShifter Workflow Diagram" width="100%">
 </p>
 
 FileShifter интегрируется с macOS на уровне Accessibility API и Apple Events:
@@ -60,24 +60,24 @@ FileShifter интегрируется с macOS на уровне Accessibility 
 <table align="center" width="100%">
   <tr>
     <td width="50%" align="center">
-      <img src="assets/badge-shift.svg" width="100%" alt="Shift: Конвертация"><br>
+      <img src="assets/badge-shift-ru.svg" width="100%" alt="Shift: Конвертация"><br>
       <b>Мгновенная смена форматов</b><br>
       <sub>WebP, AVIF, PNG, JPG, MP4, WebM, MP3, PDF, MD, JSON, YAML, CSV</sub>
     </td>
     <td width="50%" align="center">
-      <img src="assets/badge-ctrl.svg" width="100%" alt="Control: Магия AI"><br>
+      <img src="assets/badge-ctrl-ru.svg" width="100%" alt="Control: Магия AI"><br>
       <b>Нейросети и оптимизация</b><br>
       <sub>Вырезка фона (Vision), OCR в буфер, умное сжатие, очистка EXIF, Mute</sub>
     </td>
   </tr>
   <tr>
     <td width="50%" align="center">
-      <img src="assets/badge-cmd.svg" width="100%" alt="Command: Смарт-кроп"><br>
+      <img src="assets/badge-cmd-ru.svg" width="100%" alt="Command: Смарт-кроп"><br>
       <b>Vision Saliency кадрирование</b><br>
       <sub>Авто-фокус на лицах и объектах: 9:16, 1:1, 16:9, A4, штампы КОПИЯ/DRAFT</sub>
     </td>
     <td width="50%" align="center">
-      <img src="assets/badge-opt.svg" width="100%" alt="Option: Скорость"><br>
+      <img src="assets/badge-opt-ru.svg" width="100%" alt="Option: Скорость"><br>
       <b>Скорость, поворот и утилиты</b><br>
       <sub>Ускорение видео 0.5x–2.5x, масштабирование фото, Clean ZIP без .DS_Store</sub>
     </td>

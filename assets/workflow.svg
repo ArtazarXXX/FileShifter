@@ -34,8 +34,8 @@
     <circle cx="36" cy="36" r="16" fill="#38bdf8" fill-opacity="0.2"/>
     <text x="36" y="42" fill="#38bdf8" font-family="-apple-system, sans-serif" font-size="16" font-weight="800" text-anchor="middle">1</text>
     <text x="24" y="80" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif" font-size="15" font-weight="600">
-      <tspan x="24" dy="0">Выбери файл прямо</tspan>
-      <tspan x="24" dy="24">в окне Finder</tspan>
+      <tspan x="24" dy="0">Select any file directly</tspan>
+      <tspan x="24" dy="24">in macOS Finder</tspan>
     </text>
   </g>
 
@@ -50,8 +50,8 @@
     <circle cx="36" cy="36" r="16" fill="#ec4899" fill-opacity="0.2"/>
     <text x="36" y="42" fill="#ec4899" font-family="-apple-system, sans-serif" font-size="16" font-weight="800" text-anchor="middle">2</text>
     <text x="24" y="80" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif" font-size="15" font-weight="600">
-      <tspan x="24" dy="0">Тапни дважды</tspan>
-      <tspan x="24" dy="24">и удерживай клавишу</tspan>
+      <tspan x="24" dy="0">Double-tap and hold</tspan>
+      <tspan x="24" dy="24">desired modifier key</tspan>
     </text>
   </g>
 
@@ -66,8 +66,8 @@
     <circle cx="36" cy="36" r="16" fill="#a855f7" fill-opacity="0.2"/>
     <text x="36" y="42" fill="#a855f7" font-family="-apple-system, sans-serif" font-size="16" font-weight="800" text-anchor="middle">3</text>
     <text x="24" y="80" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif" font-size="15" font-weight="600">
-      <tspan x="24" dy="0">Сдвинь курсор</tspan>
-      <tspan x="24" dy="24">на нужный сектор</tspan>
+      <tspan x="24" dy="0">Flick cursor toward</tspan>
+      <tspan x="24" dy="24">the desired sector</tspan>
     </text>
   </g>
 
@@ -82,8 +82,8 @@
     <circle cx="36" cy="36" r="16" fill="#10b981" fill-opacity="0.2"/>
     <text x="36" y="42" fill="#10b981" font-family="-apple-system, sans-serif" font-size="16" font-weight="800" text-anchor="middle">4</text>
     <text x="24" y="80" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif" font-size="15" font-weight="600">
-      <tspan x="24" dy="0">Отпусти клавишу</tspan>
-      <tspan x="24" dy="24">— действие готово ✓</tspan>
+      <tspan x="24" dy="0">Release the key</tspan>
+      <tspan x="24" dy="24">— action done ✓</tspan>
     </text>
   </g>
 </svg>

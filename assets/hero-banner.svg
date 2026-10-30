@@ -74,7 +74,7 @@
     <g transform="translate(600, 48)">
       <rect x="-110" y="0" width="220" height="30" rx="15" fill="#1e293b" fill-opacity="0.6" stroke="#ffffff" stroke-opacity="0.15" stroke-width="1" filter="url(#pillShadow)"/>
       <circle cx="-85" cy="15" r="4" fill="#38bdf8" filter="url(#softGlow)"/>
-      <text x="5" y="20" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif" font-size="12" font-weight="600" letter-spacing="1">macOS NATIVE • v1.0</text>
+      <text x="5" y="20" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif" font-size="12" font-weight="600" letter-spacing="1">macOS NATIVE • v0.0.1</text>
     </g>
 
     <!-- Main Title -->
@@ -82,17 +82,17 @@
       FileShifter
     </text>
 
-    <!-- Subtitle (Точно по запросу: Жестовый конвертер для файлов macOS) -->
+    <!-- Subtitle (English) -->
     <text x="600" y="188" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif" font-size="22" font-weight="500" letter-spacing="-0.4">
-      Жестовый конвертер для файлов macOS
+      Gesture File Converter for macOS
     </text>
 
-    <!-- Prompt (Ниже: просто тапни дважды) -->
+    <!-- Prompt (English) -->
     <text x="600" y="222" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif" font-size="15" font-weight="400">
-      Просто тапни дважды и удерживай
+      Just double-tap and hold
     </text>
 
-    <!-- 4 Clean Liquid Glass Key Pills (Shift, Control, Command, Option - без лишнего текста) -->
+    <!-- 4 Clean Liquid Glass Key Pills (Shift, Control, Command, Option) -->
     <g transform="translate(600, 260)" filter="url(#pillShadow)">
       <!-- Key 1: Shift -->
       <g transform="translate(-300, 0)">
