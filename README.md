@@ -214,6 +214,15 @@ Sources/FileShifter/
 
 ---
 
+## 🔄 Release History
+
+* **v0.0.2 (2026-10-30)** — Bilingual Dynamic Central HUD, expanded center hub (+65% area, 170pt), clean radial badge buttons, and SVG entity fixes.
+* **v0.0.1 (2026-10-29)** — Initial public release of FileShifter.
+
+See detailed notes in [CHANGELOG.md](CHANGELOG.md).
+
+---
+
 ## 📄 License
 
 Distributed under the **MIT License**. See [LICENSE](LICENSE) for details.
