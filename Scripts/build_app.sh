@@ -39,22 +39,24 @@ cat <<EOF > "${CONTENTS_DIR}/Info.plist"
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
-    <string>0.0.2</string>
+    <string>0.0.3</string>
     <key>CFBundleVersion</key>
     <string>1</string>
     <key>LSMinimumSystemVersion</key>
     <string>14.0</string>
     <key>LSUIElement</key>
     <true/>
+    <key>NSRequiresAquaSystemAppearance</key>
+    <false/>
     <key>NSAppleEventsUsageDescription</key>
     <string>FileShifter использует AppleScript для определения выбранного файла в Finder.</string>
 </dict>
 </plist>
 EOF
 
-# Подписываем ad-hoc подписью для стабильных разрешений Accessibility
-echo "✍️ Подписание приложения ad-hoc подписью..."
-codesign --force --deep -s - "${APP_DIR}"
+# Подписываем ad-hoc подписью со стабильным designated requirement для сохранения разрешений Accessibility
+echo "✍️ Подписание приложения ad-hoc подписью со стабильным Bundle ID..."
+codesign --force --deep -s - --identifier "com.artem.FileShifter" --requirement '=designated => identifier "com.artem.FileShifter"' "${APP_DIR}"
 
 echo "✅ Приложение готово: $(pwd)/build/FileShifter.app"
 echo "👉 Чтобы установить в систему: cp -R build/FileShifter.app /Applications/"

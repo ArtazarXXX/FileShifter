@@ -63,6 +63,7 @@ public final class RadialMenuState: ObservableObject {
 }
 
 public struct RadialMenuView: View {
+    @Environment(\.colorScheme) private var colorScheme
     @ObservedObject public var state: RadialMenuState
     
     public var mode: WheelMode { state.mode }
@@ -306,16 +307,18 @@ public struct RadialMenuView: View {
     
     public var body: some View {
         ZStack {
-            // Светлый Liquid Glass с высокой матовой прозрачностью и мягкой тенью
+            // Светлый / темный Liquid Glass с высокой матовой прозрачностью и мягкой тенью
             Circle()
                 .fill(.ultraThinMaterial)
                 .frame(width: Self.wheelRadius * 2 + 58, height: Self.wheelRadius * 2 + 58)
-                .shadow(color: .black.opacity(0.18), radius: 18, x: 0, y: 0)
+                .shadow(color: colorScheme == .dark ? .black.opacity(0.45) : .black.opacity(0.18), radius: 18, x: 0, y: 0)
                 .overlay(
                     Circle()
                         .stroke(
                             LinearGradient(
-                                colors: [.white.opacity(0.8), .white.opacity(0.2)],
+                                colors: colorScheme == .dark
+                                    ? [.white.opacity(0.35), .white.opacity(0.08)]
+                                    : [.white.opacity(0.8), .white.opacity(0.2)],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             ),
@@ -358,14 +361,14 @@ public struct RadialMenuView: View {
                                 
                                 Text(item.title)
                                     .font(.system(size: 13, weight: .bold, design: .rounded))
-                                    .foregroundStyle(Color(white: 0.12))
+                                    .foregroundStyle(colorScheme == .dark ? Color.white : Color(white: 0.12))
                                     .lineLimit(1)
                                     .minimumScaleFactor(0.85)
                                 
                                 if let sub = item.subtitle {
                                     Text(sub)
                                         .font(.system(size: 10.5, weight: .medium, design: .rounded))
-                                        .foregroundStyle(Color(white: 0.42))
+                                        .foregroundStyle(colorScheme == .dark ? Color(white: 0.72) : Color(white: 0.42))
                                         .lineLimit(1)
                                         .minimumScaleFactor(0.85)
                                 }
@@ -382,11 +385,11 @@ public struct RadialMenuView: View {
                                     .lineLimit(1)
                                     .truncationMode(.middle)
                                     .frame(maxWidth: 124)
-                                    .foregroundStyle(Color(white: 0.2))
+                                    .foregroundStyle(colorScheme == .dark ? Color(white: 0.95) : Color(white: 0.2))
                                 
                                 Text("Dismiss • Отмена")
                                     .font(.system(size: 9, weight: .medium, design: .rounded))
-                                    .foregroundStyle(Color(white: 0.5))
+                                    .foregroundStyle(colorScheme == .dark ? Color(white: 0.6) : Color(white: 0.5))
                             }
                             .padding(.horizontal, 14)
                         }
@@ -401,14 +404,14 @@ public struct RadialMenuView: View {
         if let index = selectedIndex, index < sectors.count {
             return sectors[index].color.opacity(0.85)
         }
-        return .white.opacity(0.4)
+        return colorScheme == .dark ? .white.opacity(0.25) : .white.opacity(0.4)
     }
     
     private var activeHubShadow: Color {
         if let index = selectedIndex, index < sectors.count {
-            return sectors[index].color.opacity(0.35)
+            return sectors[index].color.opacity(colorScheme == .dark ? 0.5 : 0.35)
         }
-        return .black.opacity(0.06)
+        return colorScheme == .dark ? .black.opacity(0.3) : .black.opacity(0.06)
     }
     
     private var centerIconName: String {
@@ -437,6 +440,7 @@ public struct RadialMenuView: View {
 }
 
 private struct SectorButton: View {
+    @Environment(\.colorScheme) private var colorScheme
     let sector: SectorItem
     let angle: Double
     let radius: CGFloat
@@ -450,25 +454,47 @@ private struct SectorButton: View {
         ZStack {
             // Кнопка-сектор: круглая форма Liquid Glass с анимацией при выборе
             Circle()
-                .fill(isSelected ? sector.color : Color.white.opacity(0.65))
+                .fill(
+                    isSelected
+                        ? sector.color
+                        : (colorScheme == .dark ? Color(white: 0.18).opacity(0.88) : Color.white.opacity(0.72))
+                )
                 .frame(width: 44, height: 44)
                 .overlay(
                     Circle()
-                        .stroke(isSelected ? .white : sector.color.opacity(0.4), lineWidth: isSelected ? 2 : 1)
+                        .stroke(
+                            isSelected
+                                ? Color.white
+                                : (colorScheme == .dark ? sector.color.opacity(0.85) : sector.color.opacity(0.5)),
+                            lineWidth: isSelected ? 2.2 : 1.5
+                        )
                 )
-                .shadow(color: isSelected ? sector.color.opacity(0.55) : .black.opacity(0.08), radius: isSelected ? 8 : 3)
+                .shadow(
+                    color: isSelected
+                        ? sector.color.opacity(0.65)
+                        : (colorScheme == .dark ? .black.opacity(0.4) : .black.opacity(0.08)),
+                    radius: isSelected ? 9 : 3
+                )
             
             // Если есть короткий лейбл (например, "WebP", "9:16", "0.5x") — отображаем его, иначе системную иконку
             if let short = sector.shortLabel {
                 Text(short)
                     .font(.system(size: short.count > 3 ? 11 : 13, weight: .bold, design: .rounded))
-                    .foregroundStyle(isSelected ? .white : sector.color)
+                    .foregroundStyle(
+                        isSelected
+                            ? Color.white
+                            : (colorScheme == .dark ? Color.white : sector.color)
+                    )
                     .lineLimit(1)
                     .minimumScaleFactor(0.8)
             } else {
                 Image(systemName: sector.icon)
                     .font(.system(size: 18, weight: .bold))
-                    .foregroundStyle(isSelected ? .white : sector.color)
+                    .foregroundStyle(
+                        isSelected
+                            ? Color.white
+                            : (colorScheme == .dark ? Color.white : sector.color)
+                    )
             }
         }
         .frame(width: 44, height: 44)

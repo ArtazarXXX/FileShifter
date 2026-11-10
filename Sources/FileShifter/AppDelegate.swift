@@ -30,7 +30,16 @@ public final class AppDelegate: NSObject, NSApplicationDelegate {
     private func updateStatusMenu() {
         let menu = NSMenu()
         
-        let titleItem = NSMenuItem(title: "FileShifter: \(EventMonitor.shared.isRunning ? "Активен ✓" : "Приостановлен")", action: nil, keyEquivalent: "")
+        let statusText: String
+        if !AXIsProcessTrusted() {
+            statusText = "Требуются права Доступности ⚠️"
+        } else if EventMonitor.shared.isRunning {
+            statusText = "Активен ✓"
+        } else {
+            statusText = "Приостановлен"
+        }
+        
+        let titleItem = NSMenuItem(title: "FileShifter: \(statusText)", action: nil, keyEquivalent: "")
         titleItem.isEnabled = false
         menu.addItem(titleItem)
         menu.addItem(NSMenuItem.separator())
@@ -139,16 +148,23 @@ public final class AppDelegate: NSObject, NSApplicationDelegate {
     private func checkAccessibilityPermissions() {
         let trusted = AXIsProcessTrusted()
         if !trusted {
-            print("[FileShifter] Внимание: Для перехвата глобальных клавиш требуются права в Настройки -> Конфиденциальность -> Универсальный доступ (Accessibility)")
-            let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary
-            _ = AXIsProcessTrustedWithOptions(options)
+            print("[FileShifter] Ожидание прав Доступности (Accessibility)...")
+            
+            // Запрашиваем системный диалог только один раз при первом запуске,
+            // чтобы не спамить пользователя системными окнами при каждом перезапуске
+            let hasPrompted = UserDefaults.standard.bool(forKey: "hasPromptedAccessibility")
+            if !hasPrompted {
+                UserDefaults.standard.set(true, forKey: "hasPromptedAccessibility")
+                let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary
+                _ = AXIsProcessTrustedWithOptions(options)
+            }
             
             accessTimer?.invalidate()
             accessTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
                 Task { @MainActor in
                     if AXIsProcessTrusted() {
                         timer.invalidate()
-                        print("[FileShifter] Права Доступности успешно получены!")
+                        print("[FileShifter] Права Доступности успешно подтверждены!")
                         EventMonitor.shared.start()
                         self?.updateStatusMenu()
                         OverlayWindowController.shared.showToast(

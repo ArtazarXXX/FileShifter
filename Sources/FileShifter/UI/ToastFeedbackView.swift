@@ -1,6 +1,7 @@
 import SwiftUI
 
 public struct ToastFeedbackView: View {
+    @Environment(\.colorScheme) private var colorScheme
     public let message: String
     public let icon: String
     
@@ -17,7 +18,7 @@ public struct ToastFeedbackView: View {
             
             Text(message)
                 .font(.system(size: 13, weight: .semibold, design: .rounded))
-                .foregroundStyle(.white)
+                .foregroundStyle(colorScheme == .dark ? Color.white : Color(white: 0.12))
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 10)
@@ -28,14 +29,21 @@ public struct ToastFeedbackView: View {
                     Capsule()
                         .stroke(
                             LinearGradient(
-                                colors: [.white.opacity(0.35), .white.opacity(0.1)],
+                                colors: colorScheme == .dark
+                                    ? [.white.opacity(0.35), .white.opacity(0.1)]
+                                    : [.white.opacity(0.85), .white.opacity(0.3)],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             ),
                             lineWidth: 1
                         )
                 )
-                .shadow(color: .black.opacity(0.3), radius: 16, x: 0, y: 6)
+                .shadow(
+                    color: colorScheme == .dark ? .black.opacity(0.4) : .black.opacity(0.15),
+                    radius: 16,
+                    x: 0,
+                    y: 6
+                )
         )
     }
 }

@@ -17,6 +17,7 @@ public struct DocumentMetadata: Sendable {
 }
 
 public struct DocumentInfoCardView: View {
+    @Environment(\.colorScheme) private var colorScheme
     public let meta: DocumentMetadata
     
     public var body: some View {
@@ -31,12 +32,12 @@ public struct DocumentInfoCardView: View {
                     VStack(alignment: .leading, spacing: 1) {
                         Text(meta.fileName)
                             .font(.system(size: 13, weight: .bold, design: .rounded))
-                            .foregroundStyle(Color(white: 0.12))
+                            .foregroundStyle(colorScheme == .dark ? Color.white : Color(white: 0.12))
                             .lineLimit(1)
                         
                         Text("\(meta.formatName) • \(meta.fileSizeString)")
                             .font(.system(size: 11, weight: .medium, design: .rounded))
-                            .foregroundStyle(Color(white: 0.4))
+                            .foregroundStyle(colorScheme == .dark ? Color(white: 0.65) : Color(white: 0.4))
                     }
                     
                     Spacer()
@@ -67,7 +68,7 @@ public struct DocumentInfoCardView: View {
                 }
                 
                 Divider()
-                    .background(Color.black.opacity(0.1))
+                    .background(colorScheme == .dark ? Color.white.opacity(0.12) : Color.black.opacity(0.1))
                 
                 // Grid specs
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 8) {
@@ -99,7 +100,7 @@ public struct DocumentInfoCardView: View {
                 if let note = meta.note, !note.isEmpty {
                     Text(note)
                         .font(.system(size: 10, weight: .medium, design: .rounded))
-                        .foregroundStyle(Color(white: 0.45))
+                        .foregroundStyle(colorScheme == .dark ? Color(white: 0.65) : Color(white: 0.45))
                         .padding(.top, 2)
                 }
             }

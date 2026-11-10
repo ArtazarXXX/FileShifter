@@ -8,6 +8,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.0.3] - 2026-11-10
+
+### 🇬🇧 English
+#### 🚀 Highlights
+* **Native Dark Mode & Contrast Design:** Full dynamic adaptation to macOS system theme (`@Environment(\.colorScheme)`). Dark mode features deep frosted glass, WCAG AAA compliant white typography, vibrant neon accent strokes, and high-contrast badges for all file actions.
+* **Hit-Testing & Ray Synchronization:** Mouse tracking coordinates are now anchored directly to the live physical window center (`currentWheelCenter`). Added an outer bound limit (`205pt`) and strict inner deadzone (`85pt`) to prevent accidental activations.
+* **Smart Accessibility Permissions:** Accessibility prompt only triggers on initial launch. Subsequent launches poll quietly in the background without repeated system dialog popups. Ad-hoc codesign now uses a stable designated bundle identifier requirement (`com.artem.FileShifter`) to preserve TCC permissions across app launches and builds.
+
+---
+
+### 🇷🇺 Русский
+#### 🚀 Главные улучшения
+* **Нативная тёмная тема и выверенная контрастность:** Автоматическое определение системной темы macOS (`@Environment(\.colorScheme)`). В тёмной теме используется глубокое матовое стекло, белый контрастный текст по стандартам WCAG AAA, яркие неоновые акцентные обводки и чёткие бейджи действий.
+* **Синхронизация зоны наведения курсора:** Координаты наведения теперь привязаны строго к физическому центру окна на экране (`currentWheelCenter`). Добавлена внешняя граница (`205pt`) и чёткая внутренняя мёртвая зона ступицы (`85pt`), исключающая ложные срабатывания.
+* **Умное управление правами Доступности:** Системный диалог запрашивается только при первом запуске, не надоедая всплывающими окнами при перезапуске программы. Код-подпись теперь использует стабильный designated identifier (`com.artem.FileShifter`), благодаря чему macOS не сбрасывает выданные права при перезапуске.
+
+---
+
 ## [0.0.2] - 2026-10-30
 
 ### 🇬🇧 English

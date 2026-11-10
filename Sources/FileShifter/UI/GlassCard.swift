@@ -1,6 +1,8 @@
 import SwiftUI
 
 public struct GlassCard<Content: View>: View {
+    @Environment(\.colorScheme) private var colorScheme
+    
     public let width: CGFloat
     public let cornerRadius: CGFloat
     public let content: () -> Content
@@ -22,20 +24,29 @@ public struct GlassCard<Content: View>: View {
                         RoundedRectangle(cornerRadius: cornerRadius)
                             .stroke(
                                 LinearGradient(
-                                    colors: [.white.opacity(0.8), .white.opacity(0.2)],
+                                    colors: colorScheme == .dark
+                                        ? [.white.opacity(0.25), .white.opacity(0.08)]
+                                        : [.white.opacity(0.8), .white.opacity(0.2)],
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 ),
                                 lineWidth: 1.5
                             )
                     )
-                    .shadow(color: .black.opacity(0.14), radius: 14, x: 0, y: 6)
+                    .shadow(
+                        color: colorScheme == .dark ? .black.opacity(0.45) : .black.opacity(0.14),
+                        radius: 14,
+                        x: 0,
+                        y: 6
+                    )
             )
             .padding(16)
     }
 }
 
 public struct InfoCellView: View {
+    @Environment(\.colorScheme) private var colorScheme
+    
     public let icon: String
     public let title: String
     public let value: String
@@ -58,10 +69,10 @@ public struct InfoCellView: View {
             VStack(alignment: .leading, spacing: 0) {
                 Text(title)
                     .font(.system(size: 9, weight: .regular))
-                    .foregroundStyle(Color(white: 0.45))
+                    .foregroundStyle(colorScheme == .dark ? Color(white: 0.65) : Color(white: 0.45))
                 Text(value)
                     .font(.system(size: 11, weight: .semibold, design: .rounded))
-                    .foregroundStyle(Color(white: 0.15))
+                    .foregroundStyle(colorScheme == .dark ? Color.white : Color(white: 0.15))
                     .lineLimit(1)
             }
             if hasCardBackground {
@@ -74,9 +85,10 @@ public struct InfoCellView: View {
             Group {
                 if hasCardBackground {
                     RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.white.opacity(0.5))
+                        .fill(colorScheme == .dark ? Color.white.opacity(0.08) : Color.white.opacity(0.5))
                 }
             }
         )
     }
 }
+

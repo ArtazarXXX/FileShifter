@@ -252,15 +252,18 @@ public final class EventMonitor {
     private func trackMouseMovement() {
         guard let mode = currentMode, let file = activeFile, isWheelVisible else { return }
         
+        let wheelCenter = OverlayWindowController.shared.currentWheelCenter
+        let center = (wheelCenter != .zero) ? wheelCenter : centerLocation
         let currentMouse = NSEvent.mouseLocation
-        let dx = currentMouse.x - centerLocation.x
-        let dy = -(currentMouse.y - centerLocation.y)
+        let dx = currentMouse.x - center.x
+        let dy = -(currentMouse.y - center.y)
         
         let distance = hypot(dx, dy)
         let deadZone: CGFloat = RadialMenuView.innerRadius
+        let outerZone: CGFloat = RadialMenuView.wheelRadius + 30.0
         
         let newIndex: Int?
-        if distance < deadZone {
+        if distance < deadZone || distance > outerZone {
             newIndex = nil
         } else {
             let sectors = RadialMenuView.getSectors(mode: mode, category: file.category, fileName: file.name)

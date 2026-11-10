@@ -1,6 +1,7 @@
 import SwiftUI
 
 public struct ImageInfoCardView: View {
+    @Environment(\.colorScheme) private var colorScheme
     public let meta: ImageMetadata
     
     public var body: some View {
@@ -15,12 +16,12 @@ public struct ImageInfoCardView: View {
                     VStack(alignment: .leading, spacing: 1) {
                         Text(meta.fileName)
                             .font(.system(size: 13, weight: .bold, design: .rounded))
-                            .foregroundStyle(Color(white: 0.12))
+                            .foregroundStyle(colorScheme == .dark ? Color.white : Color(white: 0.12))
                             .lineLimit(1)
                         
                         Text("\(meta.megaPixels) • \(meta.fileSizeString)")
                             .font(.system(size: 11, weight: .medium, design: .rounded))
-                            .foregroundStyle(Color(white: 0.4))
+                            .foregroundStyle(colorScheme == .dark ? Color(white: 0.65) : Color(white: 0.4))
                     }
                     
                     Spacer()
@@ -51,7 +52,8 @@ public struct ImageInfoCardView: View {
                 }
                 
                 Divider()
-                    .background(Color.black.opacity(0.1))
+                    .background(colorScheme == .dark ? Color.white.opacity(0.12) : Color.black.opacity(0.1))
+
                 
                 // Grid specs
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 8) {

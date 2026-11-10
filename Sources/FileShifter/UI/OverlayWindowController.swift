@@ -49,12 +49,17 @@ public final class OverlayWindowController: ObservableObject {
         self.infoWindow = makeOverlayPanel(width: 360, height: 260)
     }
     
+    public var currentWheelCenter: CGPoint {
+        guard let window = self.window else { return .zero }
+        return CGPoint(x: window.frame.midX, y: window.frame.midY)
+    }
+    
     public func showWheel(mode: WheelMode, category: FileCategory, selectedIndex: Int?, fileName: String, at location: CGPoint) {
         guard let window = self.window else { return }
         
         wheelState.update(mode: mode, category: category, selectedIndex: selectedIndex, fileName: fileName)
         
-        let origin = NSPoint(x: location.x - 220, y: location.y - 220)
+        let origin = NSPoint(x: round(location.x - 220), y: round(location.y - 220))
         window.setFrameOrigin(origin)
         
         if !window.isVisible {
