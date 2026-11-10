@@ -1,103 +1,111 @@
-# FileShifter — Умный контекстный оверлей для macOS
+[🇬🇧 English](ROADMAP.md) | [🇷🇺 Русский](ROADMAP.ru.md)
 
-> Молниеносная конвертация и обработка файлов в macOS через быстрые клавиши и модификаторы (`Shift`, `Ctrl`, `Cmd`).
+# FileShifter — Smart Contextual Overlay for macOS
 
----
-
-## 🧭 Статус реализации (Progress Tracker)
-
-- [x] **Фаза 1: Фотографии & Изображения (MVP)**
-  - [x] Архитектура приложения (Swift 6.2 / AppKit MenuBar + Global Event Monitor)
-  - [x] Детектирование выделенного файла в Finder (`FinderBridge.swift`)
-  - [x] HUD-интерфейс: футуристичное радиальное меню Liquid Glass (`RadialMenuView.swift`)
-  - [x] Жест `Shift + Flick` для мгновенной смены формата (`WebP`, `PNG`, `JPG`, `PDF`)
-  - [x] Жест `Control + Flick` для 6 магических действий (`ImageProcessor.swift`):
-    - [x] Удаление фона (Apple Vision `VNGenerateForegroundInstanceMaskRequest`)
-    - [x] Сжатие без потери качества (Web Optimize)
-    - [x] Распознавание текста (OCR в буфер обмена `NSPasteboard`)
-    - [x] Масштабирование Resize (-50%)
-    - [x] Поворот (+90°)
-    - [x] Создание круглой аватарки с прозрачностью (PNG)
-  - [x] Тактильный отклик и всплывающий бейдж статуса (`ToastFeedbackView.swift`)
-  - [x] Скрипт сборки нативного `.app` бандла (`Scripts/build_app.sh`) с ad-hoc подписью
-
-- [x] **Фаза 2: Видео & Аудио**
-  - [x] Контекстное переключение: если в Finder выделено видео (`.mov`, `.mp4`, `.mkv`, `.webm`...), колесо адаптируется под видео
-  - [x] Конвертация видео на `Shift + Flick`:
-    - [x] `MP4` (Аппаратное кодирование Apple Silicon M1 `h264_videotoolbox`)
-    - [x] `WebM` (VP9 + Opus для веба)
-    - [x] `GIF` (Двухпроходная генерация чистой палитры без шума)
-    - [x] `MP3` (Моментальное извлечение аудиодорожки 320 kbps)
-    - [x] `WAV` (Аудио без сжатия PCM 16-bit)
-    - [x] `MOV` (Формат Apple)
-  - [x] Магические действия на `Control + Flick` (Сжатие <25МБ, Mute без пережатия, 5s GIF, 15s GIF, Поворот 90°, HUD-инфо)
-  - [x] Скорость воспроизведения на `Option + Flick` (0.5x, 0.75x, 1.25x, 1.5x, 1.75x, 2.0x, 2.25x, 2.5x с сохранением тональности звука и масштабированием фото)
-  - [x] Умный кроп видео на `Command + Flick` (Auto-Reframe 9:16 Vision vs Размытые поля 9:16, 1:1 Авто/Поля, 16:9, 4:5)
-
-- [x] **Фаза 3: Документы & Текст**
-  - [x] Конвертация на `Shift + Flick`:
-    - [x] **PDF**: PNG (все страницы в папку `_pages`), Обложка JPG, Извлечение текста в `.txt`, Экспорт в `.md`
-    - [x] **Данные (CSV, JSON, YAML, Plist)**: CSV $\leftrightarrow$ JSON, JSON $\leftrightarrow$ YAML, CSV $\rightarrow$ Markdown-таблица, Plist
-    - [x] **Документы (Markdown, DOCX, HTML, TXT)**: Markdown $\rightarrow$ Векторный PDF, Markdown $\rightarrow$ Семантический HTML, DOCX $\rightarrow$ PDF (CoreText), DOCX $\rightarrow$ TXT
-  - [x] Магические действия на `Control + Flick`:
-    - [x] **PDF**: Сжатие страниц (<5МБ), Apple Vision OCR в буфер обмена, Извлечение всех картинок в папку, Разрезание на страницы (`_split/`), Поворот +90°, Всплывающая карточка инфо (DPI, страницы, размер, защита)
-    - [x] **Данные (JSON, YAML, CSV)**: Prettify (2 пробела, сортировка), Minify (в 1 строку), Копирование в буфер обмена, CSV $\rightarrow$ MD-таблица в буфер, Валидация синтаксиса и HUD инфо
-    - [x] **Документы & Текст**: Статистика слов и времени чтения в HUD, Очистка текста от дублей строк и пробелов, UPPERCASE, lowercase, Копирование чистого текста в буфер
-  - [x] Быстрые утилиты на `Option + Flick`:
-    - [x] **PDF**: Поворот +90°, Поворот -90°, Перевернуть 180°, Извлечь только стр. 1, Удалить стр. 1 (обложку), Чистый ZIP без `.DS_Store` и `__MACOSX`
-    - [x] **Данные & Код**: Чистый ZIP архиватор, Сортировка строк A-Z, Дедупликация строк, Нумерация строк 1., Резервная копия с таймштампом
-  - [x] Продвинутые манипуляции на `Command + Flick`:
-    - [x] **PDF**: Умный кроп белых полей (`cropBox`), Стандартизация под формат A4, Полупрозрачный штамп «КОПИЯ» (45°), Полупрозрачный штамп «DRAFT», Пакетное объединение всех PDF папки (`_merged.pdf`)
-    - [x] **Данные & Код**: Выборка Head 10 строк, Выборка Head 100 строк, Случайный сэмпл 10 строк, Base64 Encode, Base64 Decode
-
-- [ ] **Фаза 4: Системная интеграция и полировка**
-  - [ ] Автозапуск при старте системы (LaunchAtLogin)
-  - [ ] Панель настроек (шорткаты, дефолтные форматы, папка сохранения)
-  - [ ] Звуковые эффекты / тактильный отклик (Haptic Feedback)
+> Lightning-fast file conversion, Apple Vision AI processing, and quick actions in macOS via modifier gestures (`Shift`, `Ctrl`, `Cmd`, `Option`).
 
 ---
 
-## 🎮 UX & Логика триггеров
+## 🧭 Implementation Status (Progress Tracker)
 
-* **Концепция**: Радиальное меню (Pie/Radial Wheel) с механикой **Hold & Flick**:
-  * Зажимаешь клавишу $\rightarrow$ вокруг курсора мгновенно появляется футуристичное круговое меню.
-  * Сдвигаешь мышь в сторону нужного сектора (жест занимает ~0.1–0.2 сек).
-  * Отпускаешь клавишу $\rightarrow$ действие мгновенно выполняется, меню плавно растворяется.
+- [x] **Phase 1: Photos & Images (MVP)**
+  - [x] Architecture (Swift 6.2 / AppKit MenuBar + Global Event Monitor)
+  - [x] Finder file selection bridge (`FinderBridge.swift`)
+  - [x] Futuristic Liquid Glass radial wheel menu (`RadialMenuView.swift`)
+  - [x] `Shift + Flick` gesture for instant format switching (`WebP`, `PNG`, `JPG`, `PDF`)
+  - [x] `Control + Flick` gesture for AI Magic actions (`ImageProcessor.swift`):
+    - [x] Background Removal (Apple Vision `VNGenerateForegroundInstanceMaskRequest`)
+    - [x] Lossless & Web Compression (Web Optimize)
+    - [x] Text Recognition (OCR directly to `NSPasteboard` clipboard)
+    - [x] Proportional Scaling (-50%, -25%, +25%, +50%, +100%)
+    - [x] Rotation (+90° CW)
+    - [x] Circular Avatar Creation with Alpha Transparency (PNG)
+  - [x] Haptic feedback & floating completion HUD toast (`ToastFeedbackView.swift`)
+  - [x] Automated native `.app` bundle builder (`Scripts/build_app.sh`) with stable ad-hoc codesign
 
-| Триггер | Режим колеса | Секторы колеса |
+- [x] **Phase 2: Video & Audio**
+  - [x] Contextual Adaptation: wheel dynamically switches when a video file is highlighted (`.mov`, `.mp4`, `.mkv`, `.webm`...)
+  - [x] Video conversion via `Shift + Flick`:
+    - [x] `MP4` (Apple Silicon hardware-accelerated `h264_videotoolbox`)
+    - [x] `WebM` (VP9 + Opus web codec)
+    - [x] `GIF` (High-definition two-pass palette generation)
+    - [x] `MP3` (Instant 320 kbps audio track extraction)
+    - [x] `MOV` (Apple ProRes / QuickTime)
+    - [x] `Movie Remux` (Lossless remux for Mac with subtitle preservation)
+  - [x] Magic actions via `Control + Flick` (<25MB compression, Lossless Mute, 5s GIF, 15s GIF, Rotate 90°, Video HUD specs)
+  - [x] Playback speed via `Option + Flick` (0.5x, 0.75x, 1.25x, 1.5x, 1.75x, 2.0x, 2.25x, 2.5x with audio pitch correction and image scaling)
+  - [x] Smart Vision Video Crop via `Command + Flick` (Auto-Reframe 9:16 Vision vs 9:16 Gaussian Blur, 1:1 Auto/Blur, 16:9, 4:5)
+
+- [x] **Phase 3: Documents, PDFs & Data**
+  - [x] Conversion via `Shift + Flick`:
+    - [x] **PDF**: PNG (all pages rendered to `_pages/` folder), JPG Cover, Plain text `.txt`, Markdown `.md`
+    - [x] **Data (CSV, JSON, YAML, Plist)**: CSV $\leftrightarrow$ JSON, JSON $\leftrightarrow$ YAML, CSV $\rightarrow$ Markdown Table, Plist
+    - [x] **Documents (Markdown, DOCX, HTML, TXT)**: Markdown $\rightarrow$ Vector PDF, Markdown $\rightarrow$ Semantic HTML, DOCX $\rightarrow$ PDF (CoreText), DOCX $\rightarrow$ TXT
+  - [x] Magic actions via `Control + Flick`:
+    - [x] **PDF**: Smart Compression (<5MB), Apple Vision OCR to clipboard, Extract all images, Page splitting (`_split/`), Rotate +90°, HUD Info Card (DPI, page count, file size, security)
+    - [x] **Data (JSON, YAML, CSV)**: Prettify (2-space indent, sorted keys), Minify, Copy to clipboard, CSV $\rightarrow$ MD Table to clipboard, Syntax validation & HUD
+    - [x] **Documents & Text**: Word count & Reading time HUD, Deduplicate & clean empty lines, UPPERCASE, lowercase, Copy clean text
+  - [x] Fast utilities via `Option + Flick`:
+    - [x] **PDF**: Rotate +90° CW, Rotate -90° CCW, Flip 180°, Extract page 1, Remove cover page, Clean ZIP without `.DS_Store` and `__MACOSX`
+    - [x] **Data & Code**: Clean ZIP archiver, Sort lines A-Z, Deduplicate lines, Number lines, Timestamped backup
+  - [x] Advanced manipulation via `Command + Flick`:
+    - [x] **PDF**: Smart white margin crop (`cropBox`), Normalize to A4, Translucent "COPY" stamp (45°), Translucent "DRAFT" stamp, Batch folder merge (`_merged.pdf`)
+    - [x] **Data & Code**: Head 10 lines, Head 100 lines, Random 10-line sample, Base64 Encode, Base64 Decode
+
+- [x] **Phase 4: System Integration & Design System**
+  - [x] Full native macOS Dark Theme adaptation (WCAG AAA typography, adaptive Liquid Glass materials)
+  - [x] Pixel-perfect hit-testing alignment (`currentWheelCenter`, 85pt deadzone, 205pt outer clamp)
+  - [x] Smart Accessibility (TCC) permission handling with stable designated requirement (`identifier "com.artem.FileShifter"`)
+  - [x] Haptic feedback & native macOS sound integration
+
+- [ ] **Phase 5: Future Roadmap (v0.2+)**
+  - [ ] Launch at Login (`LaunchAtLogin`)
+  - [ ] Graphical Preferences panel (custom hotkeys, default target folders, quality presets)
+  - [ ] User extensible action plugins (custom Shell / Python action scripts)
+
+---
+
+## 🎮 UX & Trigger Philosophy
+
+* **Concept**: Radial Wheel menu with a **Hold & Flick** interaction model:
+  * Hold modifier key $\rightarrow$ a futuristic Liquid Glass circular wheel instantly spawns centered at your cursor.
+  * Flick mouse toward desired action sector (gesture takes ~0.1–0.2s).
+  * Release modifier key $\rightarrow$ action executes instantly, wheel smoothly dissolves.
+
+| Trigger | Wheel Mode | Action Sectors |
 | :--- | :--- | :--- |
-| **Зажатый `⇧ Shift` + Flick** | 🔄 **Смена формата** | **Для фото**: `WebP`, `AVIF`, `PNG`, `JPG`, `PDF`<br>**Для видео**: 🍿 `Фильм (Remux для Mac с субтитрами)`, `MP4 (H.264)`, `WebM`, `GIF`, `MP3 (320k)`, `MOV`<br>**Для PDF**: `PNG страницы`, `JPG обложка`, `Извлечь TXT`, `Векторный SVG`, `Markdown`<br>**Для данных**: `JSON`, `CSV`, `YAML`, `Markdown таблица`, `Plist`<br>**Для документов**: `Векторный PDF`, `HTML`, `Markdown`, `Чистый TXT` |
-| **Зажатый `⌃ Control` + Flick** | 🪄 **Магические действия** | **Для фото**: Удалить фон, Сжать, OCR текст, Очистить EXIF, Base64, Инфо, Аватарка, Поворот +90°<br>**Для видео**: Сжать <25МБ, Без звука (Mute), 5 сек GIF, 15 сек GIF, Поворот +90°, Инфо (HUD)<br>**Для PDF**: Оптимизировать (<5МБ), OCR в буфер, Извлечь все картинки, Разрезать на страницы, Инфо HUD<br>**Для данных**: Prettify (JSON/YAML), Minify, Копировать в буфер, Валидация & Схема<br>**Для текста**: Статистика слов/времени HUD, Очистить пустые строки, UPPERCASE, lowercase |
-| **Зажатый `⌥ Option` + Flick** | ⚡️ **Утилиты & Масштаб** | **Для видео**: `0.5x`, `0.75x`, `1.25x`, `1.5x`, `1.75x`, `2.0x`, `2.25x`, `2.5x`<br>**Для фото**: Масштаб `50%`, `75%`, `125%`, `150%`, `175%`, `200%`, `225%`, `250%`<br>**Для PDF**: `+90° CW`, `-90° CCW`, `180°`, `Только стр. 1`, `Удалить стр. 1`, `Чистый ZIP`<br>**Для данных & текста**: `Чистый ZIP`, `Сортировка A-Z`, `Удалить дубли`, `Нумерация 1.`, `Backup с датой` |
-| **Зажатый `⌘ Command` + Flick** | 📐 **Кроп & Продвинутые** | **Для фото**: Vision Saliency Кроп 1:1, 16:9, 9:16, 4:3, 4:5, 3:2<br>**Для видео**: Auto-Reframe 9:16, 9:16 Blur, 1:1 Авто/Blur, 16:9, 4:5<br>**Для PDF**: Кроп полей, Подгон под A4, Штамп «КОПИЯ», Штамп «DRAFT», Объединить все PDF папки<br>**Для данных & текста**: Топ-10 строк, Топ-100 строк, Случайные 10 строк, Base64 Encode, Base64 Decode |
+| **Hold `⇧ Shift` + Flick** | 🔄 **Format Conversion** | **Photos**: `WebP`, `AVIF`, `PNG`, `JPG`, `PDF`<br>**Video**: 🍿 `Movie Remux`, `MP4 (H.264)`, `WebM`, `GIF`, `MP3 (320k)`, `MOV`<br>**PDF**: `PNG Pages`, `JPG Cover`, `Extract TXT`, `Markdown`<br>**Data**: `JSON`, `CSV`, `YAML`, `Markdown Table`, `Plist`<br>**Documents**: `Vector PDF`, `HTML`, `Markdown`, `Plain TXT` |
+| **Hold `⌃ Control` + Flick** | 🪄 **AI Magic & Info** | **Photos**: Remove Background, Compress, OCR Text, Wipe EXIF, Base64, HUD Info, Avatar, Rotate +90°<br>**Video**: Compress <25MB, Mute Audio, 5s GIF, 15s GIF, Rotate +90°, HUD Info<br>**PDF**: Optimize (<5MB), OCR to Clipboard, Extract All Images, Split Pages, HUD Info<br>**Data**: Prettify, Minify, Copy to Clipboard, Validate & Schema<br>**Text**: Word Count / Reading Time HUD, Deduplicate, UPPERCASE, lowercase |
+| **Hold `⌥ Option` + Flick** | ⚡️ **Speed & Utilities** | **Video**: `0.5x`, `0.75x`, `1.25x`, `1.5x`, `1.75x`, `2.0x`, `2.25x`, `2.5x`<br>**Photos**: Scale `50%`, `75%`, `125%`, `150%`, `175%`, `200%`, `225%`, `250%`<br>**PDF**: `+90° CW`, `-90° CCW`, `180°`, `Extract Page 1`, `Remove Page 1`, `Clean ZIP`<br>**Data & Text**: `Clean ZIP`, `Sort A-Z`, `Remove Duplicates`, `Number Lines`, `Timestamp Backup` |
+| **Hold `⌘ Command` + Flick** | 📐 **Vision Crop & Advanced** | **Photos**: Vision Saliency Crop 1:1, 16:9, 9:16, 4:3, 4:5, 3:2<br>**Video**: Auto-Reframe 9:16, 9:16 Blur, 1:1 Auto/Blur, 16:9, 4:5<br>**PDF**: Crop Margins, Normalize to A4, "COPY" Stamp, "DRAFT" Stamp, Merge Folder PDFs<br>**Data & Text**: Top 10 Lines, Top 100 Lines, Sample 10 Lines, Base64 Encode, Base64 Decode |
 
 ---
 
-## 💾 Политика сохранения файлов
-* **Принцип безопасности**: Исходные файлы **никогда не перезаписываются**.
-* **Результат**: Сохраняется в той же папке с понятным суффиксом или новым расширением:
+## 💾 File Safety & Output Strategy
+* **Zero-Destruction Principle**: Original user files are **never overwritten or altered**.
+* **Output Location**: Generated outputs are saved in the same directory with descriptive extensions or suffixes:
   * `photo.heic` $\rightarrow$ `photo.webp` / `photo.avif`
-  * `photo.jpg` $\rightarrow$ `photo_nobg.png` (для удаления фона)
-  * `photo.png` $\rightarrow$ `photo_compressed.png` (или `.jpg` для тяжелых PNG)
-  * `photo.png` $\rightarrow$ `photo_avatar.png` (круглая маска)
-  * Для OCR текст сразу копируется в буфер обмена (`NSPasteboard`).
+  * `photo.jpg` $\rightarrow$ `photo_nobg.png` (background removed)
+  * `photo.png` $\rightarrow$ `photo_compressed.png` (or `.jpg` for oversized PNGs)
+  * `photo.png` $\rightarrow$ `photo_avatar.png` (circular mask with transparency)
+  * For OCR actions, extracted text is copied straight to system clipboard (`NSPasteboard`).
 
-## 🔔 Обратная связь
-* **Тактильный / звуковой отклик**: Нативный щелчок macOS (`NSHapticFeedbackManager` / `NSSound`).
-* **Визуальный статус**: Мини-бейдж «Готово ✓» (или скопированный текст для OCR) на 0.7 сек прямо у курсора с плавной анимацией растворения (Spring animation).
+## 🔔 User Feedback
+* **Haptic & Audio**: Native macOS tactile feedback (`NSHapticFeedbackManager`) and audio pops (`NSSound`).
+* **Visual Status**: Floating HUD toast pill for 0.7s at the cursor with smooth spring animations.
 
 ---
 
-## 🛠 Технический стек и Архитектура
-* **Язык & Платформа**: Swift 6.2 / macOS 14+ (Sonoma, Sequoia, Apple Silicon native)
-* **Форм-фактор**: Menu Bar приложение (`NSStatusItem`) в строке меню:
-  * Включение / отключение мониторинга
-  * Быстрый доступ к настройкам и выход
-* **UI HUD**: Безрамочный полупрозрачный плавающий оверлей (`NSPanel` с `level = .floating`, `.nonactivatingPanel` и SwiftUI Radial Wheel)
-* **Фоновые триггеры**: `NSEvent.addGlobalMonitorForEvents(matching: .flagsChanged)` + `CGEventTap` для отслеживания удержания `Shift` / `Control` и движения мыши
-* **Детекция файла**: AppleScript (`tell application "Finder" to get selection`) для мгновенного получения пути к выделенному файлу
-* **Движки обработки фото**:
-  * Удаление фона: Apple Vision Framework (`VNGenerateForegroundInstanceMaskRequest`)
+## 🛠 Tech Stack & Architecture
+* **Language & Platform**: Swift 6.2 / macOS 14+ (Sonoma, Sequoia, Apple Silicon native)
+* **Form Factor**: Menu Bar utility (`NSStatusItem`):
+  * Toggle active event monitoring
+  * Quick access to documentation & quit
+* **UI HUD**: Borderless translucent floating panel (`NSPanel` with `.floating` level, `.nonactivatingPanel` and SwiftUI Radial Wheel)
+* **Background Interception**: `NSEvent.addGlobalMonitorForEvents(matching: .flagsChanged)` for double-tap modifier detection and cursor tracking
+* **File Bridge**: AppleScript (`tell application "Finder" to get selection`) for rapid active file resolution
+* **Processing Engines**:
+  * Background Removal: Apple Vision Framework (`VNGenerateForegroundInstanceMaskRequest`)
   * OCR: Apple Vision Framework (`VNRecognizeTextRequest`)
-  * Конвертация и сжатие: ImageIO, CoreGraphics, `sips`
-  * Преобразование в аватарку: CoreGraphics с обрезкой круглой маски (`CGContext.clip(to:)`)
+  * Image Processing: ImageIO, CoreGraphics, `sips`
+  * Video Processing: AVFoundation, hardware-accelerated `videotoolbox`, bundled ffmpeg
