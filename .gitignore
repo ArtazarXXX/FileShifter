@@ -29,3 +29,6 @@ video test/
 .vscode/
 *.swp
 *~
+
+# Marketing & Launch
+marketing/
