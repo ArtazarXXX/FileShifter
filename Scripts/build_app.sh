@@ -39,7 +39,7 @@ cat <<EOF > "${CONTENTS_DIR}/Info.plist"
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
-    <string>0.0.3</string>
+    <string>0.1.0-beta</string>
     <key>CFBundleVersion</key>
     <string>1</string>
     <key>LSMinimumSystemVersion</key>
@@ -58,5 +58,12 @@ EOF
 echo "✍️ Подписание приложения ad-hoc подписью со стабильным Bundle ID..."
 codesign --force --deep -s - --identifier "com.artem.FileShifter" --requirement '=designated => identifier "com.artem.FileShifter"' "${APP_DIR}"
 
+echo "📦 Упаковка в ZIP архив для релиза на GitHub..."
+(cd build && zip -q -r -y "FileShifter-v0.1.0-beta-macOS.zip" "FileShifter.app")
+SHA256=$(shasum -a 256 "build/FileShifter-v0.1.0-beta-macOS.zip" | awk '{print $1}')
+echo "${SHA256}  FileShifter-v0.1.0-beta-macOS.zip" > "build/FileShifter-v0.1.0-beta-macOS.zip.sha256"
+
 echo "✅ Приложение готово: $(pwd)/build/FileShifter.app"
+echo "📦 ZIP-архив релиза: $(pwd)/build/FileShifter-v0.1.0-beta-macOS.zip"
+echo "🔑 SHA-256: ${SHA256}"
 echo "👉 Чтобы установить в систему: cp -R build/FileShifter.app /Applications/"
